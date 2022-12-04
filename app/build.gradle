@@ -1,0 +1,141 @@
+apply plugin: 'com.android.application'
+apply plugin: 'img-optimizer'
+//打包时，记得设置true启用
+if (isNeedPackage.toBoolean() && isUseBooster.toBoolean()) {
+    apply plugin: 'com.didiglobal.booster'
+}
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId "com.xuexiang.androidperformancesample"
+        minSdkVersion 21
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+    }
+
+    signingConfigs {
+        if (isNeedPackage.toBoolean()) {
+            release {
+                storeFile file(app_release.storeFile)
+                storePassword app_release.storePassword
+                keyAlias app_release.keyAlias
+                keyPassword app_release.keyPassword
+            }
+        }
+
+        debug {
+            storeFile file("./debug.jks")
+            storePassword "123456"
+            keyAlias "debug"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (isNeedPackage.toBoolean()) {
+                signingConfig signingConfigs.release
+
+                Properties properties = new Properties()
+                properties.load(project.rootProject.file('local.properties').newDataInputStream())
+                def appID = properties.getProperty("APP_ID_UMENG")
+                if (appID != null) {
+                    buildConfigField "String", "APP_ID_UMENG", appID
+                } else {
+                    buildConfigField "String", "APP_ID_UMENG", '""'
+                }
+            } else {
+                signingConfig signingConfigs.debug
+                buildConfigField "String", "APP_ID_UMENG", '""'
+            }
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+
+            signingConfig signingConfigs.debug
+            buildConfigField "String", "APP_ID_UMENG", '""'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation deps.junit
+    androidTestImplementation deps.runner
+    androidTestImplementation deps.espresso.core
+
+    implementation deps.androidx.multidex
+    //屏幕适配AutoSize
+    implementation 'me.jessyan:autosize:1.2.1'
+    //umeng统计
+    implementation 'com.umeng.umsdk:common:9.3.8'
+    implementation  'com.umeng.umsdk:asms:1.2.1'
+
+    //美团多渠道打包
+    implementation 'com.meituan.android.walle:library:1.1.6'
+
+    //===================性能优化框架==============================//
+    // 任务框架
+    implementation 'com.github.xuexiangjys.XTask:xtask-core:1.0.2'
+    // ANR异常捕获
+    implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
+
+
+    //===================performance start==============================//
+    // 基础依赖，必须添加
+    debugImplementation 'io.github.xanderwang:performance:0.3.2'
+    releaseImplementation 'io.github.xanderwang:performance-noop:0.3.2'
+    // hook 方案封装，必须添加
+    debugImplementation 'io.github.xanderwang:hook:0.3.1'
+    // 以下是 hook 方案选择一个就好了。如果运行报错，就换另外一个，如果还是报错，就提个 issue
+    // SandHook 方案，推荐添加。如果运行报错，可以替换为 epic 库。
+    debugImplementation ('io.github.xanderwang:hook-sandhook:0.3.1') {
+        exclude group: 'me.weishu.exposed', module: 'exposed-xposedapi'
+    }
+    // epic 方法。如果运行报错，可以替换为 SandHook。
+//    debugImplementation 'io.github.xanderwang:hook-epic:0.3.1'
+    //===================performance end==============================//
+
+    //===================dokitx start==============================//
+    debugImplementation "io.github.didi.dokit:dokitx:3.5.0"
+    releaseImplementation "io.github.didi.dokit:dokitx-no-op:3.5.0"
+    //===================dokitx end==============================//
+
+}
+
+//x-library依赖脚本
+apply from: 'x-library-simple.gradle'
+//walle多渠道打包
+apply from: 'multiple-channel.gradle'
+

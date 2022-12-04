@@ -57,8 +57,8 @@ public class AsyncInitTask extends SimpleTaskStep {
         UMengInit.init(mApplication);
         // ANR监控
         ANRWatchDogInit.init();
-        // DoKit
-        DoKitInit.init(mApplication);
+        // Performance监控
+        PerformanceInit.init(mApplication);
     }
 
     @Override

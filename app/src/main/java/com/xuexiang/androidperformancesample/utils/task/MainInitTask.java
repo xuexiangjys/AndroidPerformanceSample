@@ -21,7 +21,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-import com.xuexiang.androidperformancesample.utils.performance.PerformanceInit;
+import com.xuexiang.androidperformancesample.utils.performance.DoKitInit;
 import com.xuexiang.androidperformancesample.utils.sdkinit.XBasicLibInit;
 import com.xuexiang.xtask.api.step.SimpleTaskStep;
 import com.xuexiang.xtask.core.ThreadType;
@@ -52,8 +52,8 @@ public class MainInitTask extends SimpleTaskStep {
         // 初始化基础库
         XBasicLibInit.init(mApplication);
 
-        // Performance监控
-        PerformanceInit.init(mApplication);
+        // DoKit
+        DoKitInit.init(mApplication);
     }
 
     @Override

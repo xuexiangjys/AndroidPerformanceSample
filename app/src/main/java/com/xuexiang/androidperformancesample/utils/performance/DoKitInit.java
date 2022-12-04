@@ -22,9 +22,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.didichuxing.doraemonkit.DoKit;
-import com.xuexiang.androidperformancesample.MyApp;
-
-import io.github.xanderwang.performance.PERF;
+import com.didichuxing.doraemonkit.DoKitCallBack;
+import com.didichuxing.doraemonkit.kit.network.bean.NetworkRecord;
+import com.xuexiang.xutil.common.logger.Logger;
 
 /**
  * 详情参见：https://xingyun.xiaojukeji.com/docs/dokit#/intro
@@ -33,6 +33,8 @@ import io.github.xanderwang.performance.PERF;
  * @since 2022/12/4 23:11
  */
 public final class DoKitInit {
+
+    private static final String TAG = "DoKitInit";
 
     private DoKitInit() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -43,8 +45,32 @@ public final class DoKitInit {
      */
     public static void init(@NonNull Application application) {
         new DoKit.Builder(application)
+                .callBack(DOKIT_CALLBACK)
 //                .productId("需要使用平台功能的话，需要到dokit.cn平台申请id")
                 .build();
     }
+
+
+    private static DoKitCallBack DOKIT_CALLBACK = new DoKitCallBack() {
+        @Override
+        public void onCpuCallBack(float value, @NonNull String filePath) {
+            Logger.iTag(TAG, "onCpuCallBack, value:" + value + ", filePath:" + filePath);
+        }
+
+        @Override
+        public void onFpsCallBack(float value, @NonNull String filePath) {
+            Logger.iTag(TAG, "onFpsCallBack, value:" + value + ", filePath:" + filePath);
+        }
+
+        @Override
+        public void onMemoryCallBack(float value, @NonNull String filePath) {
+            Logger.iTag(TAG, "onMemoryCallBack, value:" + value + ", filePath:" + filePath);
+        }
+
+        @Override
+        public void onNetworkCallBack(@NonNull NetworkRecord networkRecord) {
+            Logger.iTag(TAG, "onNetworkCallBack, networkRecord:" + networkRecord.mRequest);
+        }
+    };
 
 }

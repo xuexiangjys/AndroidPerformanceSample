@@ -45,7 +45,7 @@ public final class DoKitInit {
      */
     public static void init(@NonNull Application application) {
         new DoKit.Builder(application)
-                .callBack(DOKIT_CALLBACK)
+//                .callBack(DOKIT_CALLBACK)
 //                .productId("需要使用平台功能的话，需要到dokit.cn平台申请id")
                 .build();
     }

@@ -105,12 +105,21 @@ dependencies {
     //美团多渠道打包
     implementation 'com.meituan.android.walle:library:1.1.6'
 
-    //===================性能优化框架==============================//
+    //===================任务框架 start==============================//
     // 任务框架
     implementation 'com.github.xuexiangjys.XTask:xtask-core:1.0.2'
-    // ANR异常捕获
+    // App Startup
+    implementation "androidx.startup:startup-runtime:1.1.1"
+    // Android Startup
+    implementation 'io.github.idisfkj:android-startup:1.1.0'
+
+    //===================任务框架 end==============================//
+
+    //===================ANR异常捕获 start==============================//
+
     implementation 'com.github.anrwatchdog:anrwatchdog:1.4.0'
 
+    //===================ANR异常捕获 end==============================//
 
     //===================performance start==============================//
     // 基础依赖，必须添加

@@ -17,6 +17,8 @@ Android性能优化实践
 ### 任务执行框架
 
 * [XTask](https://github.com/xuexiangjys/XTask)
+* [App Startup](https://developer.android.google.cn/topic/libraries/app-startup)
+* [android-startup](https://github.com/idisfkj/android-startup)
 
 ### ANR监控
 

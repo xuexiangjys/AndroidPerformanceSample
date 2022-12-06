@@ -15,7 +15,7 @@
  *
  */
 
-package com.xuexiang.androidperformancesample.utils.androidstartup;
+package com.xuexiang.androidperformancesample.utils.appstartup;
 
 import android.content.Context;
 import android.util.Log;
@@ -27,32 +27,28 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * App Startup: https://developer.android.google.cn/topic/libraries/app-startup
- *
- * 初始化的顺序类似Android的事件传递：先是自上而下调用dependencies寻找依赖，然后再自下而上调用create进行初始化。
- *
- * 依赖于SDKInitializer的初始化，待其初始化后再初始化
+ * FirstInitializer, 由于没有依赖，所以首先被加载初始化
  *
  * @author xuexiang
- * @since 2022/12/6 00:28
+ * @since 2022/12/6 00:37
  */
-public class AppStartInitializer implements Initializer<Context> {
+public class FirstInitializer implements Initializer<Context> {
 
-    private static final String TAG = "AppStartInitializer";
+    private static final String TAG = "FirstInitializer";
 
     @NonNull
     @Override
     public Context create(@NonNull Context context) {
-        // 4.待SDKInitializer的初始化完毕后，开始初始化
-        Log.i(TAG, "AppStart init start...");
+        // 3.由于没有需要依赖的初始化，因此直接进行初始化
+        Log.i(TAG, "First init start...");
         return context;
     }
 
     @NonNull
     @Override
     public List<Class<? extends Initializer<?>>> dependencies() {
-        // 1.首先走到这，找寻初始化依赖
-        Log.i(TAG, "dependencies:SDKInitializer.class");
-        return Collections.singletonList(SDKInitializer.class);
+        // 2.其次走到这，找寻初始化依赖
+        Log.i(TAG, "dependencies:emptyList");
+        return Collections.emptyList();
     }
 }

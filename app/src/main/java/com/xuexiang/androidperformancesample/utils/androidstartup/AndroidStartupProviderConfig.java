@@ -17,38 +17,27 @@
 
 package com.xuexiang.androidperformancesample.utils.androidstartup;
 
-import android.content.Context;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.startup.Initializer;
 
-import java.util.Collections;
-import java.util.List;
+import com.rousetime.android_startup.model.LoggerLevel;
+import com.rousetime.android_startup.model.StartupConfig;
+import com.rousetime.android_startup.provider.StartupProviderConfig;
 
 /**
- * SDK初始化, 没有依赖，所以首先被加载初始化
+ * 自定义启动项配置
+ *
+ * 默认tag是：StartupTrack
  *
  * @author xuexiang
- * @since 2022/12/6 00:37
+ * @since 2022/12/7 01:49
  */
-public class SDKInitializer implements Initializer<Context> {
-
-    private static final String TAG = "SDKInitializer";
-
+public class AndroidStartupProviderConfig implements StartupProviderConfig {
     @NonNull
     @Override
-    public Context create(@NonNull Context context) {
-        // 3.由于没有需要依赖的初始化，因此直接进行初始化
-        Log.i(TAG, "SDK init start...");
-        return context;
-    }
-
-    @NonNull
-    @Override
-    public List<Class<? extends Initializer<?>>> dependencies() {
-        // 2.其次走到这，找寻初始化依赖
-        Log.i(TAG, "dependencies:emptyList");
-        return Collections.emptyList();
+    public StartupConfig getConfig() {
+        return new StartupConfig.Builder()
+                // 默认tag是：StartupTrack
+                .setLoggerLevel(LoggerLevel.DEBUG)
+                .build();
     }
 }

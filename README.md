@@ -33,6 +33,12 @@ Android性能优化实践
 * [performance](https://github.com/xanderwang/performance)
 
 
+## 文章
+
+* [浅谈App的启动优化](./doc/浅谈App的启动优化.md)
+* [浅谈RecyclerView的性能优化](./doc/浅谈RecyclerView的性能优化.md)
+* [App性能优化之响应时间优化](./doc/App性能优化之响应时间优化.md)
+
 ## 如果觉得项目还不错，可以考虑打赏一波
 
 > 你的打赏是我维护的动力，我将会列出所有打赏人员的清单在下方作为凭证，打赏前请留下打赏项目的备注！

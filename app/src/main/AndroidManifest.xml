@@ -52,8 +52,23 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.xuexiang.androidperformancesample.utils.androidstartup.AppStartInitializer"
+                android:name="com.xuexiang.androidperformancesample.utils.appstartup.SecondInitializer"
                 android:value="androidx.startup" />
+        </provider>
+
+        <provider
+            android:name="com.rousetime.android_startup.provider.StartupProvider"
+            android:authorities="${applicationId}.android_startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <meta-data
+                android:name="com.xuexiang.androidperformancesample.utils.androidstartup.FourthAndroidStartup"
+                android:value="android.startup" />
+
+            <meta-data
+                android:name="com.xuexiang.androidperformancesample.utils.androidstartup.AndroidStartupProviderConfig"
+                android:value="android.startup.provider.config" />
         </provider>
 
     </application>

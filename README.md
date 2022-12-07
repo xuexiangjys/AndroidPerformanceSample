@@ -26,6 +26,7 @@ Android性能优化实践
 ### ANR监控
 
 * [ANR-WatchDog](https://github.com/SalomonBrys/ANR-WatchDog)
+* [BlockCanary](https://github.com/xuexiangjys/BlockCanary)
 
 ### 内存泄漏
 

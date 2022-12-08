@@ -51,6 +51,6 @@
 ## 推荐工具
 
 * systrace、[Perfetto](https://ui.perfetto.dev/#!/) 、Profile
-* [performance](https://github.com/xanderwang/performance)
-* [LeakCanary](https://github.com/square/leakcanary)
 * [DoKit](https://github.com/didi/DoKit)
+* [LeakCanary](https://github.com/square/leakcanary)
+* [performance](https://github.com/xanderwang/performance)

@@ -41,6 +41,7 @@ Android性能优化实践
 * [浅谈App的启动优化](./doc/浅谈App的启动优化.md)
 * [浅谈RecyclerView的性能优化](./doc/浅谈RecyclerView的性能优化.md)
 * [App性能优化之响应时间优化](./doc/App性能优化之响应时间优化.md)
+* [ANR日志分析全面解析](./doc/ANR日志分析全面解析.md)
 
 ## 如果觉得项目还不错，可以考虑打赏一波
 
